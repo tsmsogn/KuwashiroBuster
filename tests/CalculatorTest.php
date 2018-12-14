@@ -50,19 +50,15 @@ class CalculatorTest extends TestCase
      */
     public function testCalcHiatariYukoOndo()
     {
-        $generation1 = new Kuwashiro(Kuwashiro::GENERATION_1);
-        $generation2 = new Kuwashiro(Kuwashiro::GENERATION_2);
-        $generation3 = new Kuwashiro(Kuwashiro::GENERATION_3);
+        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(0, Kuwashiro::GENERATION_1));
+        $this->assertEquals(1, $this->calculator->calcHiatariYukoOndo(34.5, Kuwashiro::GENERATION_1));
 
-        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(0, $generation1));
-        $this->assertEquals(1, $this->calculator->calcHiatariYukoOndo(34.5, $generation1));
+        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(0, Kuwashiro::GENERATION_2));
+        $this->assertEquals(0.5, $this->calculator->calcHiatariYukoOndo(22.8, Kuwashiro::GENERATION_2));
+        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(30, Kuwashiro::GENERATION_2));
 
-        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(0, $generation2));
-        $this->assertEquals(0.5, $this->calculator->calcHiatariYukoOndo(22.8, $generation2));
-        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(30, $generation2));
-
-        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(0, $generation3));
-        $this->assertEquals(0.5, $this->calculator->calcHiatariYukoOndo(22.8, $generation3));
-        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(30, $generation3));
+        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(0, Kuwashiro::GENERATION_3));
+        $this->assertEquals(0.5, $this->calculator->calcHiatariYukoOndo(22.8, Kuwashiro::GENERATION_3));
+        $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(30, Kuwashiro::GENERATION_3));
     }
 }

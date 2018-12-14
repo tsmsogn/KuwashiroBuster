@@ -153,7 +153,7 @@ class Kuwashiro implements KuwashiroInterface
         }
 
         $chakabuTemperature = $this->calculator()->calcChakabunaiOndo($temperature, $this->getCoverType());
-        $this->_currentDevelopmentTemperature += $this->calculator()->calcHiatariYukoOndo($chakabuTemperature, $this);
+        $this->_currentDevelopmentTemperature += $this->calculator()->calcHiatariYukoOndo($chakabuTemperature, $this->getGeneration());
     }
 
     /**

@@ -42,15 +42,15 @@ class Calculator implements CalculatorInterface
      * 日当たり有効温度を計算する
      *
      * @param $chakabunaiOndo
-     * @param $generationType
+     * @param int $generationType
      * @return float|int
      * @throws \InvalidArgumentException
      */
-    public function calcHiatariYukoOndo($chakabunaiOndo, KuwashiroInterface $kuwashiro)
+    public function calcHiatariYukoOndo($chakabunaiOndo, $generation)
     {
         $res = 0;
 
-        switch ($kuwashiro->getGeneration()) {
+        switch ($generation) {
             case Kuwashiro::GENERATION_1:
                 $res = ($chakabunaiOndo - 10.5) / 24;
                 break;

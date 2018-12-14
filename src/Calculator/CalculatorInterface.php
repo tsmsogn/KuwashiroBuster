@@ -19,8 +19,8 @@ interface CalculatorInterface
      * 日当たり有効温度を返す
      *
      * @param $chakabunaiOndo float 茶株内温度
-     * @param KuwashiroInterface $kuwashiro
+     * @param int $generation
      * @return float
      */
-    public function calcHiatariYukoOndo($chakabunaiOndo, KuwashiroInterface $kuwashiro);
+    public function calcHiatariYukoOndo($chakabunaiOndo, $generation);
 }
