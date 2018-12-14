@@ -52,11 +52,11 @@ class Calculator implements CalculatorInterface
         $res = 0;
 
         switch ($kuwashiro->getGeneration()) {
-            case Kuwashiro::SEDAI_1:
+            case Kuwashiro::GENERATION_1:
                 $res = ($chakabunaiOndo - 10.5) / 24;
                 break;
-            case Kuwashiro::SEDAI_2:
-            case Kuwashiro::SEDAI_3:
+            case Kuwashiro::GENERATION_2:
+            case Kuwashiro::GENERATION_3:
                 if ($chakabunaiOndo >= 30) {
                     $chakabunaiOndo = 0;
                 }

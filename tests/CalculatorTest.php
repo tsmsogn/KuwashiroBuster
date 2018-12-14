@@ -50,9 +50,9 @@ class CalculatorTest extends TestCase
      */
     public function testCalcHiatariYukoOndo()
     {
-        $generation1 = new Kuwashiro(Kuwashiro::SEDAI_1);
-        $generation2 = new Kuwashiro(Kuwashiro::SEDAI_2);
-        $generation3 = new Kuwashiro(Kuwashiro::SEDAI_3);
+        $generation1 = new Kuwashiro(Kuwashiro::GENERATION_1);
+        $generation2 = new Kuwashiro(Kuwashiro::GENERATION_2);
+        $generation3 = new Kuwashiro(Kuwashiro::GENERATION_3);
 
         $this->assertEquals(0, $this->calculator->calcHiatariYukoOndo(0, $generation1));
         $this->assertEquals(1, $this->calculator->calcHiatariYukoOndo(34.5, $generation1));

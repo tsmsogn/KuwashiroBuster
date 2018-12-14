@@ -19,7 +19,7 @@ class KuwashiroTest extends TestCase
      */
     public function setUp()
     {
-        $this->kuwashiro = new Kuwashiro(Kuwashiro::SEDAI_1);
+        $this->kuwashiro = new Kuwashiro(Kuwashiro::GENERATION_1);
     }
 
     /**
@@ -37,9 +37,9 @@ class KuwashiroTest extends TestCase
      */
     public function testGetDevelopThresholdTemperature()
     {
-        $this->assertEquals(287, (new Kuwashiro(Kuwashiro::SEDAI_1))->getDevelopTemperature());
-        $this->assertEquals(688, (new Kuwashiro(Kuwashiro::SEDAI_2))->getDevelopTemperature());
-        $this->assertEquals(688, (new Kuwashiro(Kuwashiro::SEDAI_3))->getDevelopTemperature());
+        $this->assertEquals(287, (new Kuwashiro(Kuwashiro::GENERATION_1))->getDevelopTemperature());
+        $this->assertEquals(688, (new Kuwashiro(Kuwashiro::GENERATION_2))->getDevelopTemperature());
+        $this->assertEquals(688, (new Kuwashiro(Kuwashiro::GENERATION_3))->getDevelopTemperature());
     }
 
     /**
@@ -47,9 +47,9 @@ class KuwashiroTest extends TestCase
      */
     public function testGetMinDevelopThresholdTemperature()
     {
-        $this->assertEquals(10.5, (new Kuwashiro(Kuwashiro::SEDAI_1))->getMinDevelopThresholdTemperature());
-        $this->assertEquals(10.8, (new Kuwashiro(Kuwashiro::SEDAI_2))->getMinDevelopThresholdTemperature());
-        $this->assertEquals(10.8, (new Kuwashiro(Kuwashiro::SEDAI_3))->getMinDevelopThresholdTemperature());
+        $this->assertEquals(10.5, (new Kuwashiro(Kuwashiro::GENERATION_1))->getMinDevelopThresholdTemperature());
+        $this->assertEquals(10.8, (new Kuwashiro(Kuwashiro::GENERATION_2))->getMinDevelopThresholdTemperature());
+        $this->assertEquals(10.8, (new Kuwashiro(Kuwashiro::GENERATION_3))->getMinDevelopThresholdTemperature());
     }
 
     /**
@@ -57,9 +57,9 @@ class KuwashiroTest extends TestCase
      */
     public function testGetMaxDevelopThresholdTemperature()
     {
-        $this->assertEquals(INF, (new Kuwashiro(Kuwashiro::SEDAI_1))->getMaxDevelopThresholdTemperature());
-        $this->assertEquals(30, (new Kuwashiro(Kuwashiro::SEDAI_2))->getMaxDevelopThresholdTemperature());
-        $this->assertEquals(30, (new Kuwashiro(Kuwashiro::SEDAI_3))->getMaxDevelopThresholdTemperature());
+        $this->assertEquals(INF, (new Kuwashiro(Kuwashiro::GENERATION_1))->getMaxDevelopThresholdTemperature());
+        $this->assertEquals(30, (new Kuwashiro(Kuwashiro::GENERATION_2))->getMaxDevelopThresholdTemperature());
+        $this->assertEquals(30, (new Kuwashiro(Kuwashiro::GENERATION_3))->getMaxDevelopThresholdTemperature());
     }
 
     /**
@@ -91,7 +91,7 @@ class KuwashiroTest extends TestCase
      */
     public function testGrow()
     {
-        $kuwashiro = new Kuwashiro(Kuwashiro::SEDAI_1);
+        $kuwashiro = new Kuwashiro(Kuwashiro::GENERATION_1);
         $kuwashiro->enableStarted(true);
         $kuwashiro->grow(20);
 
@@ -103,7 +103,7 @@ class KuwashiroTest extends TestCase
      */
     public function testGrowWithNotStarted()
     {
-        $kuwashiro = new Kuwashiro(Kuwashiro::SEDAI_1);
+        $kuwashiro = new Kuwashiro(Kuwashiro::GENERATION_1);
         $kuwashiro->grow(1);
 
         $this->assertEquals(0, $kuwashiro->getCurrentDevelopTemperature());
@@ -114,7 +114,7 @@ class KuwashiroTest extends TestCase
      */
     public function testGrowWithNegative()
     {
-        $kuwashiro = new Kuwashiro(Kuwashiro::SEDAI_1);
+        $kuwashiro = new Kuwashiro(Kuwashiro::GENERATION_1);
         $kuwashiro->enableStarted();
         $kuwashiro->grow(-1);
 

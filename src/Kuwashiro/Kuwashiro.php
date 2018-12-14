@@ -8,9 +8,9 @@ class Kuwashiro implements KuwashiroInterface
 
     protected $_calculator;
 
-    CONST SEDAI_1 = 1;
-    CONST SEDAI_2 = 2;
-    CONST SEDAI_3 = 3;
+    CONST GENERATION_1 = 1;
+    CONST GENERATION_2 = 2;
+    CONST GENERATION_3 = 3;
 
     /**
      * @var bool
@@ -21,7 +21,11 @@ class Kuwashiro implements KuwashiroInterface
      * @var int 世代
      */
     protected $_generation;
-    protected $_yukoSekisanOndo;
+
+    /**
+     * @var int 現在の有効積算温度
+     */
+    protected $_currentDevelopmentTemperature;
 
     /**
      * 世代ごとの有効積算温度
@@ -29,9 +33,9 @@ class Kuwashiro implements KuwashiroInterface
      * @var array
      */
     protected $_developThresholdTemperatureMap = [
-        self::SEDAI_1 => 287,
-        self::SEDAI_2 => 688,
-        self::SEDAI_3 => 688
+        self::GENERATION_1 => 287,
+        self::GENERATION_2 => 688,
+        self::GENERATION_3 => 688
     ];
 
     /**
@@ -40,9 +44,9 @@ class Kuwashiro implements KuwashiroInterface
      * @var array
      */
     protected $_minDevelopThresholdTemperatureMap = [
-        self::SEDAI_1 => 10.5,
-        self::SEDAI_2 => 10.8,
-        self::SEDAI_3 => 10.8,
+        self::GENERATION_1 => 10.5,
+        self::GENERATION_2 => 10.8,
+        self::GENERATION_3 => 10.8,
     ];
 
     /**
@@ -51,9 +55,9 @@ class Kuwashiro implements KuwashiroInterface
      * @var array
      */
     protected $_maxDevelopThresholdTemperatureMap = [
-        self::SEDAI_1 => INF,
-        self::SEDAI_2 => 30,
-        self::SEDAI_3 => 30,
+        self::GENERATION_1 => INF,
+        self::GENERATION_2 => 30,
+        self::GENERATION_3 => 30,
     ];
 
     /**
@@ -66,7 +70,7 @@ class Kuwashiro implements KuwashiroInterface
             throw new \InvalidArgumentException();
         }
         $this->_generation = $generation;
-        $this->_yukoSekisanOndo = 0;
+        $this->_currentDevelopmentTemperature = 0;
         $this->started = false;
 
         $this->calculator(new $this->_defaultCalculator);
@@ -77,7 +81,7 @@ class Kuwashiro implements KuwashiroInterface
      */
     public static function getAvailableGenerations()
     {
-        return array(self::SEDAI_1, self::SEDAI_2, self::SEDAI_3);
+        return array(self::GENERATION_1, self::GENERATION_2, self::GENERATION_3);
     }
 
     /**
@@ -139,7 +143,7 @@ class Kuwashiro implements KuwashiroInterface
             return;
         }
 
-        $this->_yukoSekisanOndo += $this->calculator()->calcHiatariYukoOndo($temperature, $this);
+        $this->_currentDevelopmentTemperature += $this->calculator()->calcHiatariYukoOndo($temperature, $this);
     }
 
     /**
@@ -149,7 +153,7 @@ class Kuwashiro implements KuwashiroInterface
      */
     public function getCurrentDevelopTemperature()
     {
-        return $this->_yukoSekisanOndo;
+        return $this->_currentDevelopmentTemperature;
     }
 
     /**
