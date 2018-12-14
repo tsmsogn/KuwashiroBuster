@@ -3,7 +3,6 @@
 namespace KuwashiroBuster\Calculator;
 
 use KuwashiroBuster\Kuwashiro\Farm;
-use KuwashiroBuster\Kuwashiro\FarmInterface;
 use KuwashiroBuster\Kuwashiro\Kuwashiro;
 use KuwashiroBuster\Kuwashiro\KuwashiroInterface;
 
@@ -12,13 +11,13 @@ class Calculator implements CalculatorInterface
     /**
      * 茶株内温度を計算する
      *
-     * @param $kion 気温
+     * @param $kion
      * @param $coverType
-     * @return float
+     * @return float|int|mixed
      */
-    public function calcChakabunaiOndo($kion, FarmInterface $coverType)
+    public function calcChakabunaiOndo($kion, $coverType)
     {
-        switch ($coverType->getType()) {
+        switch ($coverType) {
             case Farm::TUZYO:
                 $y = 0.9608 * $kion - 0.2239;
                 break;

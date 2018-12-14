@@ -41,9 +41,9 @@ interface KuwashiroInterface
     public function isStarted();
 
     /**
-     * 茶株内温度を加えて、育てる
+     * 育てる
      *
-     * @param float $temperature 茶株内温度
+     * @param float $temperature 気温
      */
     public function grow($temperature);
 
@@ -60,4 +60,11 @@ interface KuwashiroInterface
      * @return float
      */
     public function getDevelopTemperature();
+
+    /**
+     * 現在の被覆タイプを返す
+     *
+     * @return int
+     */
+    public function getCoverType();
 }

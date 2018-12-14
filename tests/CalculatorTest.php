@@ -37,10 +37,10 @@ class CalculatorTest extends TestCase
      */
     public function testCalcChakabunaiOndo()
     {
-        $this->assertEquals(1.6977, $this->calculator->calcChakabunaiOndo(2, new Farm(Farm::TUZYO)));
-        $this->assertEquals(2.826, $this->calculator->calcChakabunaiOndo(2, new Farm(Farm::HIFUKU1)));
-        $this->assertEquals(3.6579, $this->calculator->calcChakabunaiOndo(2, new Farm(Farm::HIFUKU2)));
-        $this->assertEquals(-0.8333, $this->calculator->calcChakabunaiOndo(2, new Farm(Farm::BANGARICYOKUGO)));
+        $this->assertEquals(1.6977, $this->calculator->calcChakabunaiOndo(2, Farm::TUZYO));
+        $this->assertEquals(2.826, $this->calculator->calcChakabunaiOndo(2, Farm::HIFUKU1));
+        $this->assertEquals(3.6579, $this->calculator->calcChakabunaiOndo(2, Farm::HIFUKU2));
+        $this->assertEquals(-0.8333, $this->calculator->calcChakabunaiOndo(2, Farm::BANGARICYOKUGO));
     }
 
     /**

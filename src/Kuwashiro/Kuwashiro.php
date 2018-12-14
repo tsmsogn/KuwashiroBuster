@@ -13,6 +13,11 @@ class Kuwashiro implements KuwashiroInterface
     CONST GENERATION_3 = 3;
 
     /**
+     * @var int
+     */
+    public $_coverType;
+
+    /**
      * @var bool
      */
     public $started;
@@ -72,6 +77,8 @@ class Kuwashiro implements KuwashiroInterface
         $this->_generation = $generation;
         $this->_currentDevelopmentTemperature = 0;
         $this->started = false;
+
+        $this->_coverType = Farm::TUZYO;
 
         $this->calculator(new $this->_defaultCalculator);
     }
@@ -135,9 +142,9 @@ class Kuwashiro implements KuwashiroInterface
     }
 
     /**
-     * 茶株内温度を加えて、育てる
+     * 育てる
      *
-     * @param float $temperature 茶株内温度
+     * @param float $temperature 気温
      */
     public function grow($temperature)
     {
@@ -145,7 +152,8 @@ class Kuwashiro implements KuwashiroInterface
             return;
         }
 
-        $this->_currentDevelopmentTemperature += $this->calculator()->calcHiatariYukoOndo($temperature, $this);
+        $chakabuTemperature = $this->calculator()->calcChakabunaiOndo($temperature, $this->getCoverType());
+        $this->_currentDevelopmentTemperature += $this->calculator()->calcHiatariYukoOndo($chakabuTemperature, $this);
     }
 
     /**
@@ -187,5 +195,25 @@ class Kuwashiro implements KuwashiroInterface
         }
 
         return $this->_calculator;
+    }
+
+    /**
+     * 現在の被覆タイプを返す
+     *
+     * @return int
+     */
+    public function getCoverType()
+    {
+        return $this->_coverType;
+    }
+
+    /**
+     * 被覆タイプを返す
+     *
+     * @param int $coverType
+     */
+    public function setCoverType($coverType)
+    {
+        $this->_coverType = $coverType;
     }
 }
