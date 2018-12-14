@@ -95,7 +95,7 @@ class KuwashiroTest extends TestCase
         $this->kuwashiro->enableStarted();
 
         while (!$this->kuwashiro->isHatch()) {
-            $this->kuwashiro->grow(1);
+            $this->kuwashiro->grow(20);
         }
 
         $this->assertNotEquals(0, $this->kuwashiro->getCurrentDevelopTemperature());
@@ -109,9 +109,9 @@ class KuwashiroTest extends TestCase
     {
         $kuwashiro = new Kuwashiro(Kuwashiro::SEDAI_1);
         $kuwashiro->enableStarted(true);
-        $kuwashiro->grow(1);
+        $kuwashiro->grow(20);
 
-        $this->assertEquals(1, $kuwashiro->getCurrentDevelopTemperature());
+        $this->assertNotEquals(0, $kuwashiro->getCurrentDevelopTemperature());
     }
 
     /**

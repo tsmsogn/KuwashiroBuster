@@ -158,20 +158,15 @@ class Kuwashiro implements KuwashiroInterface
     }
 
     /**
-     * 有効積算温度を加える
-     *
-     * @return mixed
+     * @param float $temperature 茶株内温度
      */
     public function grow($temperature)
     {
         if (!$this->isStarted()) {
             return;
         }
-        if ($temperature < 0) {
-            return;
-        }
 
-        $this->_yukoSekisanOndo += $temperature;
+        $this->_yukoSekisanOndo += $this->calculator()->calcHiatariYukoOndo($temperature, $this);
     }
 
     /**
