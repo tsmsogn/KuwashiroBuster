@@ -135,6 +135,8 @@ class Kuwashiro implements KuwashiroInterface
     }
 
     /**
+     * 茶株内温度を加えて、育てる
+     *
      * @param float $temperature 茶株内温度
      */
     public function grow($temperature)

@@ -41,9 +41,9 @@ interface KuwashiroInterface
     public function isStarted();
 
     /**
-     * 有効積算温度を加える
+     * 茶株内温度を加えて、育てる
      *
-     * @param float $temperature
+     * @param float $temperature 茶株内温度
      */
     public function grow($temperature);
 
