@@ -81,33 +81,6 @@ class Kuwashiro implements KuwashiroInterface
     }
 
     /**
-     * 世代ごとの孵化温度を返す
-     *
-     * @param $generationType
-     * @return int
-     * @throws \InvalidArgumentException
-     */
-    public static function getFukaOndo($generationType)
-    {
-        if (!in_array($generationType, self::getAvailableGenerations())) {
-            throw new \InvalidArgumentException();
-        }
-        switch ($generationType) {
-            case self::SEDAI_1:
-                $fukaOndo = 287;
-                break;
-            case self::SEDAI_2:
-            case self::SEDAI_3:
-                $fukaOndo = 688;
-                break;
-            default:
-                break;
-        }
-
-        return $fukaOndo;
-    }
-
-    /**
      * どの世代か返す
      *
      * @return mixed

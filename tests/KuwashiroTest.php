@@ -33,22 +33,6 @@ class KuwashiroTest extends TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testConstructWithInvalidArgs()
-    {
-        new Kuwashiro(4);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testGetFukaOndoWithInvalidArgs()
-    {
-        Kuwashiro::getFukaOndo(4);
-    }
-
-    /**
      * @return void
      */
     public function testGetDevelopThresholdTemperature()
