@@ -50,7 +50,7 @@ class Kuwashiro implements KuwashiroInterface
     ];
 
     /**
-     * 世代ごとの発育ゼロ点
+     * 世代ごとの発育停止点
      *
      * @var array
      */
