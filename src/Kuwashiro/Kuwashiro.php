@@ -2,45 +2,51 @@
 
 namespace KuwashiroBuster\Kuwashiro;
 
+use KuwashiroBuster\Constraints\CoverType;
+use KuwashiroBuster\Constraints\Generation;
+use KuwashiroBuster\Processor\ProcessorInterface;
+
 class Kuwashiro implements KuwashiroInterface
 {
-    protected $_defaultCalculator = '\\KuwashiroBuster\\Calculator\\Calculator';
+    /**
+     * @var string
+     */
+    protected $defaultProcessor = '\\KuwashiroBuster\\Processor\\Processor';
 
-    protected $_calculator;
-
-    CONST GENERATION_1 = 1;
-    CONST GENERATION_2 = 2;
-    CONST GENERATION_3 = 3;
+    /**
+     * @var ProcessorInterface
+     */
+    protected $processor;
 
     /**
      * @var int
      */
-    public $_coverType;
+    public $coverType;
 
     /**
      * @var bool
      */
-    public $started;
+    public $yukoSekisanOndoEnabled;
 
     /**
      * @var int 世代
      */
-    protected $_generation;
+    protected $generation;
 
     /**
      * @var int 現在の有効積算温度
      */
-    protected $_currentDevelopmentTemperature;
+    protected $currentYukoSekisanOndo;
 
     /**
      * 世代ごとの有効積算温度
      *
      * @var array
      */
-    protected $_developThresholdTemperatureMap = [
-        self::GENERATION_1 => 287,
-        self::GENERATION_2 => 688,
-        self::GENERATION_3 => 688
+    protected $yukoSekisanOndoMap = [
+        Generation::GENERATION_1 => 287,
+        Generation::GENERATION_2 => 688,
+        Generation::GENERATION_3 => 688
     ];
 
     /**
@@ -48,57 +54,50 @@ class Kuwashiro implements KuwashiroInterface
      *
      * @var array
      */
-    protected $_minDevelopThresholdTemperatureMap = [
-        self::GENERATION_1 => 10.5,
-        self::GENERATION_2 => 10.8,
-        self::GENERATION_3 => 10.8,
+    protected $hatsuikuZeroTenMap = [
+        Generation::GENERATION_1 => 10.5,
+        Generation::GENERATION_2 => 10.8,
+        Generation::GENERATION_3 => 10.8,
     ];
 
     /**
-     * 世代ごとの発育停止点
+     * 世代ごとの発育停止温度
      *
      * @var array
      */
-    protected $_maxDevelopThresholdTemperatureMap = [
-        self::GENERATION_1 => INF,
-        self::GENERATION_2 => 30,
-        self::GENERATION_3 => 30,
+    protected $hatsuikuTeishiOndoMap = [
+        Generation::GENERATION_1 => INF,
+        Generation::GENERATION_2 => 30,
+        Generation::GENERATION_3 => 30,
     ];
 
     /**
      * Kuwashiro constructor.
-     * @param $generation int 世代
+     * @param $generation
+     * @param bool $yukoSekisanOndoEnabled
      */
-    public function __construct($generation)
+    public function __construct($generation, $yukoSekisanOndoEnabled = true)
     {
-        if (!in_array($generation, self::getAvailableGenerations())) {
+        if (!in_array($generation, Generation::getList())) {
             throw new \InvalidArgumentException();
         }
-        $this->_generation = $generation;
-        $this->_currentDevelopmentTemperature = 0;
-        $this->started = false;
+        $this->generation = $generation;
+        $this->currentYukoSekisanOndo = 0;
+        $this->yukoSekisanOndoEnabled = $yukoSekisanOndoEnabled;
 
-        $this->_coverType = Farm::TUZYO;
+        $this->coverType = CoverType::ROTEN;
 
-        $this->calculator(new $this->_defaultCalculator);
+        $this->processor(new $this->defaultProcessor);
     }
 
     /**
-     * @return array
-     */
-    public static function getAvailableGenerations()
-    {
-        return array(self::GENERATION_1, self::GENERATION_2, self::GENERATION_3);
-    }
-
-    /**
-     * どの世代か返す
+     * 世代を返す
      *
      * @return mixed
      */
     public function getGeneration()
     {
-        return $this->_generation;
+        return $this->generation;
     }
 
     /**
@@ -108,7 +107,7 @@ class Kuwashiro implements KuwashiroInterface
      */
     public function isHatch()
     {
-        return $this->getDevelopTemperature() < $this->getCurrentDevelopTemperature();
+        return $this->getYukoSekisanOndo() < $this->getCurrentYukioSekisanOndo();
     }
 
     /**
@@ -116,44 +115,44 @@ class Kuwashiro implements KuwashiroInterface
      *
      * @return float
      */
-    public function getMinDevelopThresholdTemperature()
+    public function getHatsuikuZeroTen()
     {
-        return $this->_minDevelopThresholdTemperatureMap[$this->getGeneration()];
+        return $this->hatsuikuZeroTenMap[$this->getGeneration()];
     }
 
     /**
-     * 発育停止点を返す
+     * 発育停止温度を返す
      *
      * @return float
      */
-    public function getMaxDevelopThresholdTemperature()
+    public function getHatsuikuTeishiOndo()
     {
-        return $this->_maxDevelopThresholdTemperatureMap[$this->getGeneration()];
+        return $this->hatsuikuTeishiOndoMap[$this->getGeneration()];
     }
 
     /**
-     * 起算日を過ぎているかを返す
+     * 積算が有効化されているかを返す
      *
      * @return boolean
      */
-    public function isStarted()
+    public function isYukoSekisanOndoEnabled()
     {
-        return $this->started;
+        return $this->yukoSekisanOndoEnabled;
     }
 
     /**
-     * 育てる
+     * 気温で育つ
      *
-     * @param float $temperature 気温
+     * @param $temperature
      */
     public function grow($temperature)
     {
-        if (!$this->isStarted()) {
+        if (!$this->isYukoSekisanOndoEnabled()) {
             return;
         }
 
-        $chakabuTemperature = $this->calculator()->calcChakabunaiOndo($temperature, $this->getCoverType());
-        $this->_currentDevelopmentTemperature += $this->calculator()->calcHiatariYukoOndo($chakabuTemperature, $this->getGeneration());
+        $chakabuOndo = $this->processor()->toChakabunaiOndo($temperature, $this->getCoverType());
+        $this->currentYukoSekisanOndo += $this->processor()->toYukoSekisanOndo($chakabuOndo, $this->getGeneration());
     }
 
     /**
@@ -161,9 +160,9 @@ class Kuwashiro implements KuwashiroInterface
      *
      * @return float
      */
-    public function getCurrentDevelopTemperature()
+    public function getCurrentYukioSekisanOndo()
     {
-        return $this->_currentDevelopmentTemperature;
+        return $this->currentYukoSekisanOndo;
     }
 
     /**
@@ -171,49 +170,51 @@ class Kuwashiro implements KuwashiroInterface
      *
      * @return float
      */
-    public function getDevelopTemperature()
+    public function getYukoSekisanOndo()
     {
-        return $this->_developThresholdTemperatureMap[$this->getGeneration()];
+        return $this->yukoSekisanOndoMap[$this->getGeneration()];
     }
 
     /**
+     * 積算を有効化する
+     *
      * @param $enabled
      */
-    public function enableStarted($enabled = true)
+    public function enableYukoSekisanOndo($enabled = true)
     {
-        $this->started = $enabled;
+        $this->yukoSekisanOndoEnabled = $enabled;
     }
 
     /**
-     * @param \KuwashiroBuster\Calculator\CalculatorInterface|null $calculator
-     * @return \KuwashiroBuster\Calculator\CalculatorInterface
+     * @param \KuwashiroBuster\Processor\ProcessorInterface|null $processor
+     * @return \KuwashiroBuster\Processor\ProcessorInterface
      */
-    public function calculator(\KuwashiroBuster\Calculator\CalculatorInterface $calculator = null)
+    public function processor(\KuwashiroBuster\Processor\ProcessorInterface $processor = null)
     {
-        if (!$this->_calculator instanceof \KuwashiroBuster\Calculator\CalculatorInterface) {
-            $this->_calculator = $calculator;
+        if (!$this->processor instanceof \KuwashiroBuster\Processor\ProcessorInterface) {
+            $this->processor = $processor;
         }
 
-        return $this->_calculator;
-    }
-
-    /**
-     * 現在の被覆タイプを返す
-     *
-     * @return int
-     */
-    public function getCoverType()
-    {
-        return $this->_coverType;
+        return $this->processor;
     }
 
     /**
      * 被覆タイプを返す
      *
-     * @param int $coverType
+     * @return int
+     */
+    public function getCoverType()
+    {
+        return $this->coverType;
+    }
+
+    /**
+     * 被覆タイプを設定する
+     *
+     * @param $coverType
      */
     public function setCoverType($coverType)
     {
-        $this->_coverType = $coverType;
+        $this->coverType = $coverType;
     }
 }

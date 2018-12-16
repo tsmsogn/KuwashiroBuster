@@ -2,33 +2,28 @@
 
 namespace KuwashiroBuster\Test;
 
+use KuwashiroBuster\Constraints\Generation;
 use KuwashiroBuster\Kuwashiro\Kuwashiro;
 use PHPUnit\Framework\TestCase;
 
 class KuwashiroTest extends TestCase
 {
     /**
-     * @var Kuwashiro
+     * @var \KuwashiroBuster\Kuwashiro\Kuwashiro
      */
     public $kuwashiro;
 
-    /**
-     * setUp method
-     *
-     * @return void
-     */
     public function setUp()
     {
-        $this->kuwashiro = new Kuwashiro(Kuwashiro::GENERATION_1);
+        parent::setUp();
+
+        $this->kuwashiro = new Kuwashiro(Generation::GENERATION_1);
     }
 
-    /**
-     * tearDown method
-     *
-     * @return void
-     */
     public function tearDown()
     {
+        parent::tearDown();
+
         unset($this->kuwashiro);
     }
 
@@ -37,9 +32,9 @@ class KuwashiroTest extends TestCase
      */
     public function testGetDevelopThresholdTemperature()
     {
-        $this->assertEquals(287, (new Kuwashiro(Kuwashiro::GENERATION_1))->getDevelopTemperature());
-        $this->assertEquals(688, (new Kuwashiro(Kuwashiro::GENERATION_2))->getDevelopTemperature());
-        $this->assertEquals(688, (new Kuwashiro(Kuwashiro::GENERATION_3))->getDevelopTemperature());
+        $this->assertEquals(287, (new Kuwashiro(Generation::GENERATION_1))->getYukoSekisanOndo());
+        $this->assertEquals(688, (new Kuwashiro(Generation::GENERATION_2))->getYukoSekisanOndo());
+        $this->assertEquals(688, (new Kuwashiro(Generation::GENERATION_3))->getYukoSekisanOndo());
     }
 
     /**
@@ -47,9 +42,9 @@ class KuwashiroTest extends TestCase
      */
     public function testGetMinDevelopThresholdTemperature()
     {
-        $this->assertEquals(10.5, (new Kuwashiro(Kuwashiro::GENERATION_1))->getMinDevelopThresholdTemperature());
-        $this->assertEquals(10.8, (new Kuwashiro(Kuwashiro::GENERATION_2))->getMinDevelopThresholdTemperature());
-        $this->assertEquals(10.8, (new Kuwashiro(Kuwashiro::GENERATION_3))->getMinDevelopThresholdTemperature());
+        $this->assertEquals(10.5, (new Kuwashiro(Generation::GENERATION_1))->getHatsuikuZeroTen());
+        $this->assertEquals(10.8, (new Kuwashiro(Generation::GENERATION_2))->getHatsuikuZeroTen());
+        $this->assertEquals(10.8, (new Kuwashiro(Generation::GENERATION_3))->getHatsuikuZeroTen());
     }
 
     /**
@@ -57,9 +52,9 @@ class KuwashiroTest extends TestCase
      */
     public function testGetMaxDevelopThresholdTemperature()
     {
-        $this->assertEquals(INF, (new Kuwashiro(Kuwashiro::GENERATION_1))->getMaxDevelopThresholdTemperature());
-        $this->assertEquals(30, (new Kuwashiro(Kuwashiro::GENERATION_2))->getMaxDevelopThresholdTemperature());
-        $this->assertEquals(30, (new Kuwashiro(Kuwashiro::GENERATION_3))->getMaxDevelopThresholdTemperature());
+        $this->assertEquals(INF, (new Kuwashiro(Generation::GENERATION_1))->getHatsuikuTeishiOndo());
+        $this->assertEquals(30, (new Kuwashiro(Generation::GENERATION_2))->getHatsuikuTeishiOndo());
+        $this->assertEquals(30, (new Kuwashiro(Generation::GENERATION_3))->getHatsuikuTeishiOndo());
     }
 
     /**
@@ -76,13 +71,12 @@ class KuwashiroTest extends TestCase
     public function testYukoSekisanOndo()
     {
         $this->assertFalse($this->kuwashiro->isHatch());
-        $this->kuwashiro->enableStarted();
 
         while (!$this->kuwashiro->isHatch()) {
             $this->kuwashiro->grow(20);
         }
 
-        $this->assertNotEquals(0, $this->kuwashiro->getCurrentDevelopTemperature());
+        $this->assertNotEquals(0, $this->kuwashiro->getCurrentYukioSekisanOndo());
         $this->assertTrue($this->kuwashiro->isHatch());
     }
 
@@ -91,11 +85,10 @@ class KuwashiroTest extends TestCase
      */
     public function testGrow()
     {
-        $kuwashiro = new Kuwashiro(Kuwashiro::GENERATION_1);
-        $kuwashiro->enableStarted(true);
+        $kuwashiro = new Kuwashiro(Generation::GENERATION_1);
         $kuwashiro->grow(20);
 
-        $this->assertNotEquals(0, $kuwashiro->getCurrentDevelopTemperature());
+        $this->assertNotEquals(0, $kuwashiro->getCurrentYukioSekisanOndo());
     }
 
     /**
@@ -103,10 +96,10 @@ class KuwashiroTest extends TestCase
      */
     public function testGrowWithNotStarted()
     {
-        $kuwashiro = new Kuwashiro(Kuwashiro::GENERATION_1);
-        $kuwashiro->grow(1);
+        $kuwashiro = new Kuwashiro(Generation::GENERATION_1, false);
+        $kuwashiro->grow(20);
 
-        $this->assertEquals(0, $kuwashiro->getCurrentDevelopTemperature());
+        $this->assertEquals(0, $kuwashiro->getCurrentYukioSekisanOndo());
     }
 
     /**
@@ -114,10 +107,10 @@ class KuwashiroTest extends TestCase
      */
     public function testGrowWithNegative()
     {
-        $kuwashiro = new Kuwashiro(Kuwashiro::GENERATION_1);
-        $kuwashiro->enableStarted();
+        $kuwashiro = new Kuwashiro(Generation::GENERATION_1);
+        $kuwashiro->enableYukoSekisanOndo();
         $kuwashiro->grow(-1);
 
-        $this->assertEquals(0, $kuwashiro->getCurrentDevelopTemperature());
+        $this->assertEquals(0, $kuwashiro->getCurrentYukioSekisanOndo());
     }
 }

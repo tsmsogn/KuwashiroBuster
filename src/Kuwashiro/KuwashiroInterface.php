@@ -2,69 +2,25 @@
 
 namespace KuwashiroBuster\Kuwashiro;
 
-
 interface KuwashiroInterface
 {
-    /**
-     * 世代を返す
-     *
-     * @return int 世代
-     */
     public function getGeneration();
 
-    /**
-     * 孵化したを返す
-     *
-     * @return boolean
-     */
     public function isHatch();
 
-    /**
-     * 発育零点を返す
-     *
-     * @return float
-     */
-    public function getMinDevelopThresholdTemperature();
+    public function getYukoSekisanOndo();
 
-    /**
-     * 発育停止点を返す
-     *
-     * @return float
-     */
-    public function getMaxDevelopThresholdTemperature();
+    public function getHatsuikuZeroTen();
 
-    /**
-     * 起算日を過ぎているかを返す
-     *
-     * @return boolean
-     */
-    public function isStarted();
+    public function getHatsuikuTeishiOndo();
 
-    /**
-     * 育てる
-     *
-     * @param float $temperature 気温
-     */
+    public function isYukoSekisanOndoEnabled();
+
     public function grow($temperature);
 
-    /**
-     * 現在の有効積算温度を返す
-     *
-     * @return float
-     */
-    public function getCurrentDevelopTemperature();
+    public function getCurrentYukioSekisanOndo();
 
-    /**
-     * 有効積算温度を返す
-     *
-     * @return float
-     */
-    public function getDevelopTemperature();
-
-    /**
-     * 現在の被覆タイプを返す
-     *
-     * @return int
-     */
     public function getCoverType();
+
+    public function enableYukoSekisanOndo($enabled);
 }
