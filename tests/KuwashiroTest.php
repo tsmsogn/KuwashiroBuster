@@ -30,7 +30,7 @@ class KuwashiroTest extends TestCase
     /**
      * @return void
      */
-    public function testGetDevelopThresholdTemperature()
+    public function testGetYukoSekisanOndo()
     {
         $this->assertEquals(287, (new Kuwashiro(Generation::GENERATION_1))->getYukoSekisanOndo());
         $this->assertEquals(688, (new Kuwashiro(Generation::GENERATION_2))->getYukoSekisanOndo());
@@ -40,7 +40,7 @@ class KuwashiroTest extends TestCase
     /**
      * @return void
      */
-    public function testGetMinDevelopThresholdTemperature()
+    public function testGetHatsuikuZeroTen()
     {
         $this->assertEquals(10.5, (new Kuwashiro(Generation::GENERATION_1))->getHatsuikuZeroTen());
         $this->assertEquals(10.8, (new Kuwashiro(Generation::GENERATION_2))->getHatsuikuZeroTen());
@@ -50,7 +50,7 @@ class KuwashiroTest extends TestCase
     /**
      * @return void
      */
-    public function testGetMaxDevelopThresholdTemperature()
+    public function testGetHatsuikuTeishiOndo()
     {
         $this->assertEquals(INF, (new Kuwashiro(Generation::GENERATION_1))->getHatsuikuTeishiOndo());
         $this->assertEquals(30, (new Kuwashiro(Generation::GENERATION_2))->getHatsuikuTeishiOndo());
