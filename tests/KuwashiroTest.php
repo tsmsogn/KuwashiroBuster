@@ -32,9 +32,14 @@ class KuwashiroTest extends TestCase
      */
     public function testGetYukoSekisanOndo()
     {
-        $this->assertEquals(287, (new Kuwashiro(Generation::GENERATION_1))->getYukoSekisanOndo());
-        $this->assertEquals(688, (new Kuwashiro(Generation::GENERATION_2))->getYukoSekisanOndo());
-        $this->assertEquals(688, (new Kuwashiro(Generation::GENERATION_3))->getYukoSekisanOndo());
+        $generation1 = new Kuwashiro(Generation::GENERATION_1);
+        $this->assertEquals(287, $generation1->getYukoSekisanOndo());
+
+        $generation2 = new Kuwashiro(Generation::GENERATION_2);
+        $this->assertEquals(688, $generation2->getYukoSekisanOndo());
+
+        $generation3 = new Kuwashiro(Generation::GENERATION_3);
+        $this->assertEquals(688, $generation3->getYukoSekisanOndo());
     }
 
     /**
@@ -42,9 +47,14 @@ class KuwashiroTest extends TestCase
      */
     public function testGetHatsuikuZeroTen()
     {
-        $this->assertEquals(10.5, (new Kuwashiro(Generation::GENERATION_1))->getHatsuikuZeroTen());
-        $this->assertEquals(10.8, (new Kuwashiro(Generation::GENERATION_2))->getHatsuikuZeroTen());
-        $this->assertEquals(10.8, (new Kuwashiro(Generation::GENERATION_3))->getHatsuikuZeroTen());
+        $generation1 = new Kuwashiro(Generation::GENERATION_1);
+        $this->assertEquals(10.5, $generation1->getHatsuikuZeroTen());
+
+        $generation2 = new Kuwashiro(Generation::GENERATION_2);
+        $this->assertEquals(10.8, $generation2->getHatsuikuZeroTen());
+
+        $generation3 = new Kuwashiro(Generation::GENERATION_3);
+        $this->assertEquals(10.8, $generation3->getHatsuikuZeroTen());
     }
 
     /**
@@ -52,9 +62,14 @@ class KuwashiroTest extends TestCase
      */
     public function testGetHatsuikuTeishiOndo()
     {
-        $this->assertEquals(INF, (new Kuwashiro(Generation::GENERATION_1))->getHatsuikuTeishiOndo());
-        $this->assertEquals(30, (new Kuwashiro(Generation::GENERATION_2))->getHatsuikuTeishiOndo());
-        $this->assertEquals(30, (new Kuwashiro(Generation::GENERATION_3))->getHatsuikuTeishiOndo());
+        $generation1 = new Kuwashiro(Generation::GENERATION_1);
+        $this->assertEquals(INF, $generation1->getHatsuikuTeishiOndo());
+
+        $generation2 = new Kuwashiro(Generation::GENERATION_2);
+        $this->assertEquals(30, $generation2->getHatsuikuTeishiOndo());
+
+        $generation3 = new Kuwashiro(Generation::GENERATION_3);
+        $this->assertEquals(30, $generation3->getHatsuikuTeishiOndo());
     }
 
     /**
