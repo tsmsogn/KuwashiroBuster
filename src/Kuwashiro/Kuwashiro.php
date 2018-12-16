@@ -144,15 +144,16 @@ class Kuwashiro implements KuwashiroInterface
      * 気温で育つ
      *
      * @param $temperature
+     * @return $this
      */
     public function grow($temperature)
     {
-        if (!$this->isYukoSekisanOndoEnabled()) {
-            return;
+        if ($this->isYukoSekisanOndoEnabled()) {
+            $chakabuOndo = $this->processor()->toChakabunaiOndo($temperature, $this->getCoverType());
+            $this->currentYukoSekisanOndo += $this->processor()->toYukoSekisanOndo($chakabuOndo, $this->getGeneration());
         }
 
-        $chakabuOndo = $this->processor()->toChakabunaiOndo($temperature, $this->getCoverType());
-        $this->currentYukoSekisanOndo += $this->processor()->toYukoSekisanOndo($chakabuOndo, $this->getGeneration());
+        return $this;
     }
 
     /**
@@ -178,18 +179,20 @@ class Kuwashiro implements KuwashiroInterface
     /**
      * 積算を有効化する
      *
-     * @param $enabled
+     * @param bool $enabled
+     * @return $this
      */
     public function enableYukoSekisanOndo($enabled = true)
     {
         $this->yukoSekisanOndoEnabled = $enabled;
+        return $this;
     }
 
     /**
      * @param \KuwashiroBuster\Processor\ProcessorInterface|null $processor
      * @return \KuwashiroBuster\Processor\ProcessorInterface
      */
-    public function processor(\KuwashiroBuster\Processor\ProcessorInterface $processor = null)
+    protected function processor(\KuwashiroBuster\Processor\ProcessorInterface $processor = null)
     {
         if (!$this->processor instanceof \KuwashiroBuster\Processor\ProcessorInterface) {
             $this->processor = $processor;
@@ -212,9 +215,11 @@ class Kuwashiro implements KuwashiroInterface
      * 被覆タイプを設定する
      *
      * @param $coverType
+     * @return $this
      */
     public function setCoverType($coverType)
     {
         $this->coverType = $coverType;
+        return $this;
     }
 }

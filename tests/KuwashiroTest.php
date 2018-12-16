@@ -2,6 +2,7 @@
 
 namespace KuwashiroBuster\Test;
 
+use KuwashiroBuster\Constraints\CoverType;
 use KuwashiroBuster\Constraints\Generation;
 use KuwashiroBuster\Kuwashiro\Kuwashiro;
 use PHPUnit\Framework\TestCase;
@@ -100,21 +101,24 @@ class KuwashiroTest extends TestCase
      */
     public function testGrow()
     {
-        $kuwashiro = new Kuwashiro(Generation::GENERATION_1);
-        $kuwashiro->grow(20);
+        $currentYukoSekisanOndo = $this->kuwashiro
+            ->grow(20)
+            ->getCurrentYukioSekisanOndo();
 
-        $this->assertNotEquals(0, $kuwashiro->getCurrentYukioSekisanOndo());
+        $this->assertNotEquals(0, $currentYukoSekisanOndo);
     }
 
     /**
      * @return void
      */
-    public function testGrowWithNotStarted()
+    public function testGrowWithSekisanDisabled()
     {
-        $kuwashiro = new Kuwashiro(Generation::GENERATION_1, false);
-        $kuwashiro->grow(20);
+        $currentYukoSekisanOndo = $this->kuwashiro
+            ->enableYukoSekisanOndo(false)
+            ->grow(20)
+            ->getCurrentYukioSekisanOndo();
 
-        $this->assertEquals(0, $kuwashiro->getCurrentYukioSekisanOndo());
+        $this->assertEquals(0, $currentYukoSekisanOndo);
     }
 
     /**
@@ -122,10 +126,30 @@ class KuwashiroTest extends TestCase
      */
     public function testGrowWithNegative()
     {
-        $kuwashiro = new Kuwashiro(Generation::GENERATION_1);
-        $kuwashiro->enableYukoSekisanOndo();
-        $kuwashiro->grow(-1);
+        $currentYukoSekisanOndo = $this->kuwashiro
+            ->grow(-1)
+            ->getCurrentYukioSekisanOndo();
 
-        $this->assertEquals(0, $kuwashiro->getCurrentYukioSekisanOndo());
+        $this->assertEquals(0, $currentYukoSekisanOndo);
+    }
+
+    /**
+     * @return void
+     */
+    public function testEnableSekisan()
+    {
+        $this->assertFalse($this->kuwashiro->enableYukoSekisanOndo(false)->isYukoSekisanOndoEnabled());
+    }
+
+    /**
+     * @return void
+     */
+    public function testCoverType()
+    {
+        $coverType = $this->kuwashiro
+            ->setCoverType(CoverType::BANGARI)
+            ->getCoverType();
+
+        $this->assertEquals(CoverType::BANGARI, $coverType);
     }
 }
