@@ -4,7 +4,7 @@
 
 ## これは何？
 
-http://www.pref.kyoto.jp/chaken/seika_kuwashiro.html を PHP 実装したものです
+http://www.pref.kyoto.jp/chaken/seika_kuwashiro.html を PHP で実装したものです
 
 ## 必要なもの
 
