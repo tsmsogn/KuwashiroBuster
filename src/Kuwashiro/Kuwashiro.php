@@ -43,33 +43,33 @@ class Kuwashiro implements KuwashiroInterface
      *
      * @var array
      */
-    protected $yukoSekisanOndoMap = [
+    protected $yukoSekisanOndoMap = array(
         Generation::GENERATION_1 => 287,
         Generation::GENERATION_2 => 688,
         Generation::GENERATION_3 => 688
-    ];
+    );
 
     /**
      * 世代ごとの発育ゼロ点
      *
      * @var array
      */
-    protected $hatsuikuZeroTenMap = [
+    protected $hatsuikuZeroTenMap = array(
         Generation::GENERATION_1 => 10.5,
         Generation::GENERATION_2 => 10.8,
         Generation::GENERATION_3 => 10.8,
-    ];
+    );
 
     /**
      * 世代ごとの発育停止温度
      *
      * @var array
      */
-    protected $hatsuikuTeishiOndoMap = [
+    protected $hatsuikuTeishiOndoMap = array(
         Generation::GENERATION_1 => INF,
         Generation::GENERATION_2 => 30,
         Generation::GENERATION_3 => 30,
-    ];
+    );
 
     /**
      * Kuwashiro constructor.
