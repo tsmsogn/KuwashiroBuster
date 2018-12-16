@@ -14,11 +14,11 @@ class CoverType
      */
     public static function getList()
     {
-        return [
+        return array(
             self::ROTEN,
             self::HITIE_HIFUKU,
             self::FUTAE_HIFUKU,
             self::BANGARI
-        ];
+        );
     }
 }
