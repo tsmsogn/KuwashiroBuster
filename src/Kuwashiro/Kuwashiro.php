@@ -74,9 +74,9 @@ class Kuwashiro implements KuwashiroInterface
     /**
      * Kuwashiro constructor.
      * @param $generation
-     * @param bool $sekisanEnabled
+     * @param bool $enableSekisan
      */
-    public function __construct($generation, $sekisanEnabled = true)
+    public function __construct($generation, $enableSekisan = true)
     {
         if (!in_array($generation, Generation::getList())) {
             throw new \InvalidArgumentException();
@@ -87,7 +87,7 @@ class Kuwashiro implements KuwashiroInterface
         $this->processor(new $this->defaultProcessor);
 
         $this->generation = $generation;
-        $this->sekisanEnabled = $sekisanEnabled;
+        $this->sekisanEnabled = $enableSekisan;
     }
 
     /**
