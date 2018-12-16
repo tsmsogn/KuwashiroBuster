@@ -114,7 +114,7 @@ class KuwashiroTest extends TestCase
     public function testGrowWithSekisanDisabled()
     {
         $currentYukoSekisanOndo = $this->kuwashiro
-            ->enableYukoSekisanOndo(false)
+            ->enableSekisan(false)
             ->grow(20)
             ->getCurrentYukioSekisanOndo();
 
@@ -138,7 +138,7 @@ class KuwashiroTest extends TestCase
      */
     public function testEnableSekisan()
     {
-        $this->assertFalse($this->kuwashiro->enableYukoSekisanOndo(false)->isYukoSekisanOndoEnabled());
+        $this->assertFalse($this->kuwashiro->enableSekisan(false)->isSekisanEnabled());
     }
 
     /**

@@ -14,7 +14,7 @@ interface KuwashiroInterface
 
     public function getHatsuikuTeishiOndo();
 
-    public function isYukoSekisanOndoEnabled();
+    public function isSekisanEnabled();
 
     public function grow($temperature);
 
@@ -22,5 +22,5 @@ interface KuwashiroInterface
 
     public function getCoverType();
 
-    public function enableYukoSekisanOndo($enabled);
+    public function enableSekisan($enabled);
 }

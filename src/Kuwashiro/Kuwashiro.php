@@ -26,7 +26,7 @@ class Kuwashiro implements KuwashiroInterface
     /**
      * @var bool
      */
-    public $yukoSekisanOndoEnabled;
+    public $sekisanEnabled;
 
     /**
      * @var int 世代
@@ -74,16 +74,16 @@ class Kuwashiro implements KuwashiroInterface
     /**
      * Kuwashiro constructor.
      * @param $generation
-     * @param bool $yukoSekisanOndoEnabled
+     * @param bool $sekisanEnabled
      */
-    public function __construct($generation, $yukoSekisanOndoEnabled = true)
+    public function __construct($generation, $sekisanEnabled = true)
     {
         if (!in_array($generation, Generation::getList())) {
             throw new \InvalidArgumentException();
         }
         $this->generation = $generation;
         $this->currentYukoSekisanOndo = 0;
-        $this->yukoSekisanOndoEnabled = $yukoSekisanOndoEnabled;
+        $this->sekisanEnabled = $sekisanEnabled;
 
         $this->coverType = CoverType::ROTEN;
 
@@ -135,9 +135,9 @@ class Kuwashiro implements KuwashiroInterface
      *
      * @return boolean
      */
-    public function isYukoSekisanOndoEnabled()
+    public function isSekisanEnabled()
     {
-        return $this->yukoSekisanOndoEnabled;
+        return $this->sekisanEnabled;
     }
 
     /**
@@ -148,7 +148,7 @@ class Kuwashiro implements KuwashiroInterface
      */
     public function grow($temperature)
     {
-        if ($this->isYukoSekisanOndoEnabled()) {
+        if ($this->isSekisanEnabled()) {
             $chakabuOndo = $this->processor()->toChakabunaiOndo($temperature, $this->getCoverType());
             $this->currentYukoSekisanOndo += $this->processor()->toYukoSekisanOndo($chakabuOndo, $this->getGeneration());
         }
@@ -182,9 +182,9 @@ class Kuwashiro implements KuwashiroInterface
      * @param bool $enabled
      * @return $this
      */
-    public function enableYukoSekisanOndo($enabled = true)
+    public function enableSekisan($enabled = true)
     {
-        $this->yukoSekisanOndoEnabled = $enabled;
+        $this->sekisanEnabled = $enabled;
         return $this;
     }
 
