@@ -16,6 +16,30 @@ http://www.pref.kyoto.jp/chaken/seika_kuwashiro.html を PHP で実装したも�
 composer require tsmsogn/kuwashiro-buster
 ```
 
-## TODO
+## 使い方
 
-- 使い方を書く
+### 基本的な使い方
+
+```php
+<?php
+
+use KuwashiroBuster\Constraints\Generation;
+use KuwashiroBuster\Kuwashiro\Kuwashiro;
+
+// クワシロカイガラムシを作る
+$kuwashiro = new Kuwashiro(Generation::GENERATION_1);
+
+// 孵化するまで育てる
+while (!$kuwashiro->isHatch()) {
+    
+    // 有効積算温度を取得する
+    $yukoSekisanOndo = $kuwashiro->getYukoSekisanOndo();
+    // 現在の有効積算温度を取得する
+    $currentYukoSekisanOndo = $kuwashiro->getCurrentYukioSekisanOndo();
+    
+    echo sprintf('(有効積算温度, 現在の有効積算温度) = (%s, %s)', $yukoSekisanOndo, $currentYukoSekisanOndo) . "\n";
+
+    // 気温 20℃で育てる
+    $kuwashiro->grow(20);
+}
+```
