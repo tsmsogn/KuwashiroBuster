@@ -40,24 +40,24 @@ class Processor implements ProcessorInterface
     /**
      * 茶株内温度を有効積算温度に変換する
      *
-     * @param $chakabunaiTemperature
+     * @param $chakabunaiOndo
      * @param $generation
      * @return float|int
      */
-    public function toYukoSekisanOndo($chakabunaiTemperature, $generation)
+    public function toYukoSekisanOndo($chakabunaiOndo, $generation)
     {
         $res = 0;
 
         switch ($generation) {
             case Generation::GENERATION_1:
-                $res = ($chakabunaiTemperature - 10.5) / 24;
+                $res = ($chakabunaiOndo - 10.5) / 24;
                 break;
             case Generation::GENERATION_2:
             case Generation::GENERATION_3:
-                if ($chakabunaiTemperature >= 30) {
-                    $chakabunaiTemperature = 0;
+                if ($chakabunaiOndo >= 30) {
+                    $chakabunaiOndo = 0;
                 }
-                $res = ($chakabunaiTemperature - 10.8) / 24;
+                $res = ($chakabunaiOndo - 10.8) / 24;
                 break;
             default:
                 break;
