@@ -31,6 +31,17 @@ class KuwashiroTest extends TestCase
     /**
      * @return void
      */
+    public function testConstructor()
+    {
+        $this->assertEquals(0, $this->kuwashiro->getCurrentYukioSekisanOndo());
+        $this->assertEquals(CoverType::ROTEN, $this->kuwashiro->getCoverType());
+        $this->assertEquals(Generation::GENERATION_1, $this->kuwashiro->getCoverType());
+        $this->assertTrue($this->kuwashiro->isSekisanEnabled());
+    }
+
+    /**
+     * @return void
+     */
     public function testGetYukoSekisanOndo()
     {
         $generation1 = new Kuwashiro(Generation::GENERATION_1);

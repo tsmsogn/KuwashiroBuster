@@ -81,13 +81,13 @@ class Kuwashiro implements KuwashiroInterface
         if (!in_array($generation, Generation::getList())) {
             throw new \InvalidArgumentException();
         }
-        $this->generation = $generation;
+
         $this->currentYukoSekisanOndo = 0;
-        $this->sekisanEnabled = $sekisanEnabled;
-
         $this->coverType = CoverType::ROTEN;
-
         $this->processor(new $this->defaultProcessor);
+
+        $this->generation = $generation;
+        $this->sekisanEnabled = $sekisanEnabled;
     }
 
     /**
