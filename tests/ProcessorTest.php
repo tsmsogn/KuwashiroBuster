@@ -44,15 +44,15 @@ class ProcessorTest extends TestCase
      */
     public function testToYukoSekisanOndo()
     {
-        $this->assertEquals(0, $this->processor->toYukoSekisanOndo(0, Generation::GENERATION_1));
-        $this->assertEquals(1, $this->processor->toYukoSekisanOndo(34.5, Generation::GENERATION_1));
+        $this->assertEquals(0, $this->processor->toHiatariYukoOndo(0, Generation::GENERATION_1));
+        $this->assertEquals(1, $this->processor->toHiatariYukoOndo(34.5, Generation::GENERATION_1));
 
-        $this->assertEquals(0, $this->processor->toYukoSekisanOndo(0, Generation::GENERATION_2));
-        $this->assertEquals(0.5, $this->processor->toYukoSekisanOndo(22.8, Generation::GENERATION_2));
-        $this->assertEquals(0, $this->processor->toYukoSekisanOndo(30, Generation::GENERATION_2));
+        $this->assertEquals(0, $this->processor->toHiatariYukoOndo(0, Generation::GENERATION_2));
+        $this->assertEquals(0.5, $this->processor->toHiatariYukoOndo(22.8, Generation::GENERATION_2));
+        $this->assertEquals(0, $this->processor->toHiatariYukoOndo(30, Generation::GENERATION_2));
 
-        $this->assertEquals(0, $this->processor->toYukoSekisanOndo(0, Generation::GENERATION_3));
-        $this->assertEquals(0.5, $this->processor->toYukoSekisanOndo(22.8, Generation::GENERATION_3));
-        $this->assertEquals(0, $this->processor->toYukoSekisanOndo(30, Generation::GENERATION_3));
+        $this->assertEquals(0, $this->processor->toHiatariYukoOndo(0, Generation::GENERATION_3));
+        $this->assertEquals(0.5, $this->processor->toHiatariYukoOndo(22.8, Generation::GENERATION_3));
+        $this->assertEquals(0, $this->processor->toHiatariYukoOndo(30, Generation::GENERATION_3));
     }
 }

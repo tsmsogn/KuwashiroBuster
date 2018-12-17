@@ -38,13 +38,13 @@ class Processor implements ProcessorInterface
     }
 
     /**
-     * 茶株内温度を有効積算温度に変換する
+     * 茶株内温度を日当たり有効温度に変換する
      *
      * @param $chakabunaiOndo
      * @param $generation
      * @return float|int
      */
-    public function toYukoSekisanOndo($chakabunaiOndo, $generation)
+    public function toHiatariYukoOndo($chakabunaiOndo, $generation)
     {
         $res = 0;
 

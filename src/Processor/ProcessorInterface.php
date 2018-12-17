@@ -6,5 +6,5 @@ interface ProcessorInterface
 {
     public function toChakabunaiOndo($temperature, $coverType);
 
-    public function toYukoSekisanOndo($chakabunaiOndo, $generation);
+    public function toHiatariYukoOndo($chakabunaiOndo, $generation);
 }

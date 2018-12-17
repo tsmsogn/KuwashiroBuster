@@ -150,7 +150,7 @@ class Kuwashiro implements KuwashiroInterface
     {
         if ($this->isSekisanEnabled()) {
             $chakabuOndo = $this->processor()->toChakabunaiOndo($temperature, $this->getCoverType());
-            $this->currentYukoSekisanOndo += $this->processor()->toYukoSekisanOndo($chakabuOndo, $this->getGeneration());
+            $this->currentYukoSekisanOndo += $this->processor()->toHiatariYukoOndo($chakabuOndo, $this->getGeneration());
         }
 
         return $this;
