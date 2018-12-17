@@ -1,4 +1,4 @@
-# クワシロカイガラムシ撃退する君
+# クワシロカイガラムシを撃退する君
 
 [![Build Status](https://travis-ci.org/tsmsogn/KuwashiroBuster.svg?branch=master)](https://travis-ci.org/tsmsogn/KuwashiroBuster)
 
