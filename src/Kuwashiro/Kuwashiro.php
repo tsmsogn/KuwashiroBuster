@@ -38,38 +38,6 @@ class Kuwashiro implements KuwashiroInterface
      */
     protected $currentYukoSekisanOndo;
 
-    /**
-     * 世代ごとの有効積算温度
-     *
-     * @var array
-     */
-    protected $yukoSekisanOndoMap = array(
-        Generation::GENERATION_1 => 287,
-        Generation::GENERATION_2 => 688,
-        Generation::GENERATION_3 => 688
-    );
-
-    /**
-     * 世代ごとの発育ゼロ点
-     *
-     * @var array
-     */
-    protected $hatsuikuZeroTenMap = array(
-        Generation::GENERATION_1 => 10.5,
-        Generation::GENERATION_2 => 10.8,
-        Generation::GENERATION_3 => 10.8,
-    );
-
-    /**
-     * 世代ごとの発育停止温度
-     *
-     * @var array
-     */
-    protected $hatsuikuTeishiOndoMap = array(
-        Generation::GENERATION_1 => INF,
-        Generation::GENERATION_2 => 30,
-        Generation::GENERATION_3 => 30,
-    );
 
     /**
      * Kuwashiro constructor.
@@ -117,7 +85,8 @@ class Kuwashiro implements KuwashiroInterface
      */
     public function getHatsuikuZeroTen()
     {
-        return $this->hatsuikuZeroTenMap[$this->getGeneration()];
+        $hatsuikuZeroTens = $this->processor()->getHatsuikuZeroTens();
+        return $hatsuikuZeroTens[$this->getGeneration()];
     }
 
     /**
@@ -127,7 +96,8 @@ class Kuwashiro implements KuwashiroInterface
      */
     public function getHatsuikuTeishiOndo()
     {
-        return $this->hatsuikuTeishiOndoMap[$this->getGeneration()];
+        $hatsuikuTeishiOndos = $this->processor()->getHatsuikuTeishiOndos();
+        return $hatsuikuTeishiOndos[$this->getGeneration()];
     }
 
     /**
@@ -173,7 +143,8 @@ class Kuwashiro implements KuwashiroInterface
      */
     public function getYukoSekisanOndo()
     {
-        return $this->yukoSekisanOndoMap[$this->getGeneration()];
+        $yukoSekisanOndos = $this->processor()->getYukoSekisanOndos();
+        return $yukoSekisanOndos[$this->getGeneration()];
     }
 
     /**

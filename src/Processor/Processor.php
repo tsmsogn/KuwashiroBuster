@@ -8,6 +8,48 @@ use KuwashiroBuster\Constraints\Generation;
 class Processor implements ProcessorInterface
 {
     /**
+     * 世代ごとの有効積算温度を返す
+     *
+     * @return array
+     */
+    public function getYukoSekisanOndos()
+    {
+        return array(
+            Generation::GENERATION_1 => 287,
+            Generation::GENERATION_2 => 688,
+            Generation::GENERATION_3 => 688
+        );
+    }
+
+    /**
+     * 世代ごとの発育ゼロ点を返す
+     *
+     * @return array
+     */
+    public function getHatsuikuZeroTens()
+    {
+        return array(
+            Generation::GENERATION_1 => 10.5,
+            Generation::GENERATION_2 => 10.8,
+            Generation::GENERATION_3 => 10.8,
+        );
+    }
+
+    /**
+     * 世代ごとの発育停止温度を返す
+     *
+     * @return array
+     */
+    public function getHatsuikuTeishiOndos()
+    {
+        return array(
+            Generation::GENERATION_1 => INF,
+            Generation::GENERATION_2 => 30,
+            Generation::GENERATION_3 => 30,
+        );
+    }
+
+    /**
      * 気温を茶株内温度に変換する
      *
      * @param $temperature
