@@ -88,23 +88,20 @@ class Processor implements ProcessorInterface
      */
     public function toHiatariYukoOndo($chakabunaiOndo, $generation)
     {
-        $res = 0;
+        $hatsuikuTeishiOndos = $this->getHatsuikuTeishiOndos();
+        $hatsuikuZeroTens = $this->getHatsuikuZeroTens();
 
-        switch ($generation) {
-            case Generation::GENERATION_1:
-                $res = ($chakabunaiOndo - 10.5) / 24;
-                break;
-            case Generation::GENERATION_2:
-            case Generation::GENERATION_3:
-                if ($chakabunaiOndo >= 30) {
-                    $chakabunaiOndo = 0;
-                }
-                $res = ($chakabunaiOndo - 10.8) / 24;
-                break;
-            default:
-                break;
+        $hatsuikuTeishiOndo = $hatsuikuTeishiOndos[$generation];
+        if ($chakabunaiOndo >= $hatsuikuTeishiOndo) {
+            return 0;
         }
 
-        return ($res > 0) ? $res : 0;
+        $hiatariYukoOndo = ($chakabunaiOndo - $hatsuikuZeroTens[$generation]) / 24;
+
+        if ($hiatariYukoOndo > 0) {
+            return $hiatariYukoOndo;
+        }
+
+        return 0;
     }
 }
