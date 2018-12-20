@@ -58,6 +58,8 @@ class Processor implements ProcessorInterface
      */
     public function toChakabunaiOndo($temperature, $coverType)
     {
+        $y = 0;
+
         switch ($coverType) {
             case CoverType::ROTEN:
                 $y = 0.9608 * $temperature - 0.2239;
@@ -72,7 +74,6 @@ class Processor implements ProcessorInterface
                 $y = 1.1749 * $temperature - 3.1831;
                 break;
             default:
-                $y = 0;
                 break;
         }
 

@@ -42,6 +42,16 @@ class KuwashiroTest extends TestCase
     /**
      * @return void
      */
+    public function testConstructorWithInvalidArgument()
+    {
+        $this->setExpectedException('InvalidArgumentException');
+
+        new Kuwashiro(0);
+    }
+
+    /**
+     * @return void
+     */
     public function testGetYukoSekisanOndo()
     {
         $generation1 = new Kuwashiro(Generation::GENERATION_1);
