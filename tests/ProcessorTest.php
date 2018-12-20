@@ -33,6 +33,7 @@ class ProcessorTest extends TestCase
      */
     public function testToChakabunaiOndo()
     {
+        $this->assertEquals(0, $this->processor->toChakabunaiOndo(2, 0));
         $this->assertEquals(1.6977, $this->processor->toChakabunaiOndo(2, CoverType::ROTEN));
         $this->assertEquals(2.826, $this->processor->toChakabunaiOndo(2, CoverType::HITIE_HIFUKU));
         $this->assertEquals(3.6579, $this->processor->toChakabunaiOndo(2, CoverType::FUTAE_HIFUKU));
